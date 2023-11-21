@@ -1,0 +1,87 @@
+{%extends 'ace.html'%}
+{%load static%}
+{%block content%}
+<title>Medical Record Page</title>
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+<h1>Medical Page</h1>
+<style>
+  Body {  
+   font-family: Calibri, Helvetica, sans-serif;  
+   text-decoration-color: #f1f1f1;  
+ } 
+ .half-bg {
+      height: 100vh;
+      background-color: #ffffffff;
+      background-image: linear-gradient(to bottom, #ffffffff 50%, #f2f2f2 50%);
+    }
+    .content {
+      padding: 20px;
+      text-align:justify;
+      }
+    h2{font-size:x-large;
+      background-attachment: fixed;
+      font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      font-style: oblique;
+      text-decoration-color: blue;
+      color: blue;
+
+ } 
+h1 {text-align:justify;
+  text-decoration: solid;
+
+ }
+ /* Basic button styling */
+button {
+    background-color: #FF5733; /* Set the background color to a specific color value */
+    color: white; /* Set the text color to contrast with the background */
+    padding: 10px 20px; /* Add padding to the button for spacing */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Add rounded corners */
+    cursor: pointer; /* Change the cursor to a hand pointer on hover */
+}
+
+ form {
+    display: flex;
+    flex-direction: row; /* Arrange form fields horizontally */
+    flex-wrap: wrap; /* Allow wrapping to create columns */
+    justify-content: center; /* Center horizontally */
+}
+
+/* Style for each column */
+.column {
+    width: 50%; /* Divide the form into two columns */
+    display: flex;
+    flex-direction: column; /* Arrange form fields vertically within each column */
+    align-items: center; /* Center vertically within each column */
+    margin: 5px; /* Add spacing between columns */
+}
+
+form label,
+form input {
+    margin: 5px 0; /* Add spacing between form fields */
+}
+
+
+ </style>
+ <div class="half-bg">
+  <div class="content">
+      <!-- Your content here -->
+      <li class="nav-item">
+        <a class="nav-link" href="{%url 'Records:search_patient'%}">Search Patient</a>
+      </li>
+      <h2>N/B: For Clinical Officer/Medical Officer Filling!!</h2>
+      <form method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button class="btn btn-primary" type="submit">Save Record</button>
+      </form>
+  </div>
+</div>
+
+{%endblock content%}

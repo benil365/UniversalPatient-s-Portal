@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<table>
+    <thead>
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Identity No</th>
+        <!-- Add other fields you want to display -->
+      </tr>
+    </thead>
+    <tbody>
+      {% for patient in patients %}
+      <tr>
+        <td>{{ patient.First_name }}</td>
+        <td>{{ patient.Last_name }}</td>
+        <td>{{ patient.Identity_No }}</td>
+        <!-- Display other fields here -->
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% if request.user.user_type == 'hospital' %}
+    <a href="{% url 'hospital_dashboard' %}">Back to Hospital Dashboard</a>
+  {% elif request.user.user_type == 'patient' %}
+    <a href="{% url 'patient_dashboard' %}">Back to Patient Dashboard</a>
+  {% else %}
+    <a href="{% url 'dashboard' %}">Back to Dashboard</a>
+  {% endif %}
+  <!-- Patient list HTML content -->
+{% endblock %}
