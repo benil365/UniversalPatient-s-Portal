@@ -7,27 +7,28 @@ class Hospital(models.Model):
     name = models.CharField(max_length=100)
 
 class CustomUserManager(BaseUserManager):
-    def create_user(self, username, password=None, user_type=None, **extra_fields):
+    def create_user(self, username, user_type, password=None, **extra_fields):
         if not username:
-            raise ValueError('The Username field must be set')
-        
+            raise ValueError('The username must be set')
+
         user = self.model(username=username, user_type=user_type, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, username, password, user_type, **extra_fields):
-        extra_fields.setdefault('is_staff', True)
-        extra_fields.setdefault('is_superuser', True)
+    def create_doctor(self, username, password=None, **extra_fields):
+        return self.create_user(username, 'doctor', password=password, **extra_fields)
 
-        if extra_fields.get('is_staff') is not True:
-            raise ValueError('Superuser must have is_staff=True.')
-        if extra_fields.get('is_superuser') is not True:
-            raise ValueError('Superuser must have is_superuser=True.')
+    def create_patient(self, username, password=None, **extra_fields):
+        return self.create_user(username, 'patient', password=password, **extra_fields)
 
-        return self.create_user(username, password, user_type, **extra_fields)
-
-
+    def create_superuser(self, username, password=None, **extra_fields):
+        user = self.create_user(username, 'superuser', password=password, **extra_fields)
+        user.is_staff = True
+        user.is_superuser = True
+        user.save(using=self._db)
+        return user
+    
 class CustomUser(AbstractUser):
     # Add any additional fields or methods you need for your custom user model
     user_type_choices = [
@@ -52,7 +53,6 @@ class Doctor(models.Model):
     # Add hospital-specific fields
 
 
-
 class Patient(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, primary_key=False)
     Username = models.CharField(max_length=50, unique=True, null=True, default='')
@@ -65,7 +65,6 @@ class DoctorData(models.Model):
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     # Add hospital data fields
-
 
 class PatientData(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)

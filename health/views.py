@@ -171,18 +171,18 @@ def Doctor_registration(request):
     if request.method == "POST":
         form = Doctor_registrationForm(request.POST)
         if form.is_valid():
-            username = form.cleaned_data["Username"]
+            Username = form.cleaned_data["Username"]
             password = form.cleaned_data["Password"]
             doctor = form.cleaned_data["name"]
-            if CustomUser.objects.filter(username=username).exists():
+            if Doctor.objects.filter(Username=Username).exists():
                 messages.error(
                     request, "Username already exists. Please choose a different one."
                 )
                 return redirect("registration")
             else:
                 # Create a CustomUser for the doctor
-                user = CustomUser.objects.create_user(
-                    username=username, password=password, user_type="doctor"
+                user = Doctor.objects.create_doctor(
+                    username=Username, password=password, user_type="doctor"
                 )
                 # Save the user instance
                 user.save()
@@ -251,7 +251,7 @@ def Patient_registration(request):
                 Username=username,
                 Password=password,
                 Hospital=hospital,
-                Identity_No=identity_no,
+                Identity_No=identity,
             )
             patient.my_hospitals.add(hospital)
             # Debugging statement to check authentication
@@ -326,6 +326,7 @@ def patient_dashboard(request):
     if user.user_type == "patient":
         user_type = 'patient'
         patients = CustomUser.objects.filter(user_type=user_type)
+        patient = Patient.objects.filter()
         
 
         # Add patient-specific logic and context data here

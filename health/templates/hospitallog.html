@@ -39,7 +39,12 @@ button {
  .container {   
         padding: 25px;   
         background-color: rgb(219, 173, 230);  
-    }   
+    } 
+    .footer {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;  
 </style>   
 </head>
 <form method="post">
@@ -47,4 +52,7 @@ button {
   {{ form.as_p }}
   <button type="submit">LogIn</button>
 </form>
+<div class="footer">
+  <p>&copy; 2023 Global Access.A BeniL International Product. All rights reserved.</p>
+</div>
 {%endblock content%}
