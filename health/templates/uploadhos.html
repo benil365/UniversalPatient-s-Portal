@@ -46,31 +46,37 @@
   </style>
 </head>
 <body>
+  <div style="position: absolute; top: 80px; right: 80px;">
+    {% if user.is_authenticated %}
+      <p><b>Registration ID: {{ user.doctor.reg_number }}</b></p>
+      
+    {% endif %}
+  </div>
   <h1>Dashboard</h1>
   
   <div class="dashboard">
     <div class="dashboard-item" id="uploads">
-      <h2>Hospital Uploads</h2>
-      <p>View and manage your uploads.</p>
+      <h2><a href="{% url 'health:patient_list' %}">Health Records</a></h2>
+      <p>Upload, View and Manage Patients Health Records.</p>
       
     </div>
     
     <div class="dashboard-item" id="hospitals">
-      <h2><a href="{% url 'patient_list' %}">My Patients</a></h2>
+      <h2><a href="{% url 'health:patient_list' %}">My Patients</a></h2>
       <p>Access information about your Patients.</p>
     </div>
     
     <div class="dashboard-item" id="subscriptions">
-      <h2>My Subscriptions</h2>
-      <p>Manage your subscription details.</p>
+      <h2><a href="{% url 'health:patient_list' %}">Subscriptions</a></h2>
+      <p>Manage your subscription services.</p>
     </div>
     
     <div class="dashboard-item" id="reports">
-      <h2>Reports</h2>
-      <p>View,Generate and analyze medical reports for patients.</p>
+      <h2><a href="{% url 'health:patient_list' %}">Health Reports</a></h2>
+      <p>Generate, View and analyze health reports for patients.</p>
     </div>
   </div>
-  <a href="{% url 'change_password' %}">Do you want to Change password?Click here</a></h2>
+  <a href="{% url 'health:paswd_change' %}">Do you want to Change password?Click here</a></h2>
   <div id="posts-container"></div>
   
   <div id="upload-message"></div>
@@ -205,9 +211,9 @@
     </table>
 </body>
 <a href="{% url 'health:Upload' %}">Health Document Upload</a></h2>
- <p>For more information please contant us through our emai:<a href="mailto:benilinternational@yahoo.com">benilinternational@gmail.com</a><br>
+ <p>For more information please contant us through our email:<a href="mailto:benilinternational@yahoo.com">benilinternational@gmail.com</a><br>
 Or call us on <a href="tel:0115427807">+254115427807</a></p>
 {%if user.is_authenticated%}
-<a href="{%url 'logout' %}">Logout</a> 
+<a href="{%url 'health:logout' %}">Logout</a> 
 {%endif%}
 {%endblock content%}

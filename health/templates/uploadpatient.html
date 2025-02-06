@@ -68,7 +68,7 @@
       <p>Access information about your hospitals.</p>
       {% if user.user_type == 'patient' %}
       {% if num_hospitals == 0 %}
-      <p>You have zero hospitals. <a href="">Click here</a> to view hospitals.</p>
+      <p>You have zero hospitals. <a href="">Click here</a> to view all hospitals.</p>
       {% else %}
       <p>You have {{ num_hospitals }} hospitals.</p>
       {% for hospital in my_hospitals %}

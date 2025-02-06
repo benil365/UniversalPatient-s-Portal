@@ -22,7 +22,7 @@ from .models import (
     Patient_registration,
 )
 from django.contrib.auth.hashers import make_password
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
 
 def dashboard_view(request):
@@ -171,41 +171,45 @@ def Doctor_registration(request):
     if request.method == "POST":
         form = Doctor_registrationForm(request.POST)
         if form.is_valid():
-            Username = form.cleaned_data["Username"]
+            # Extract form data
+            username = form.cleaned_data["Username"]
             password = form.cleaned_data["Password"]
-            doctor = form.cleaned_data["name"]
-            if Doctor.objects.filter(Username=Username).exists():
-                messages.error(
-                    request, "Username already exists. Please choose a different one."
-                )
-                return redirect("registration")
+            doctor_name = form.cleaned_data["name"]
+            reg_number = form.cleaned_data["reg_number"]
+            
+            # Check if the username already exists
+            if get_user_model().objects.filter(username=username).exists():
+                messages.error(request, "Username already exists. Please choose a different one.")
+                return redirect("health:registration")
             else:
-                # Create a CustomUser for the doctor
-                user = Doctor.objects.create_doctor(
-                    username=Username, password=password, user_type="doctor"
+                # Create a new User instance
+                user = get_user_model().objects.create_user(
+                    username=username,
+                    user_type='doctor',
+                    password=password,
+                    reg_number=reg_number,
+                    name= doctor_name,
                 )
-                # Save the user instance
-                user.save()
-
-                # Create DoctorData object and link to the doctor
-                CustomUser = doctor(user=user, Doctor=doctor)
-                doctor.save()
-
-                # Debugging statement to check authentication
-                authenticated_user = authenticate(
-                    request, username=username, password=password
+                
+                # Create a new Doctor instance associated with the created User instance
+                doctor = Doctor.objects.create(
+                    user=user,
+                    Username=username,
+                    Password=password,
+                
+                    # Add other doctor-specific fields here
                 )
-                print("Authenticated user:", authenticated_user)
+                
+                # Log in the user
+                authenticated_user = authenticate(request, username=username, password=password)
                 if authenticated_user is not None:
                     login(request, authenticated_user)
-                    return redirect("uploadhos.html")
+                    return redirect("health:Hospital")
                 else:
-                    messages.error(
-                        request,
-                        "Failed to authenticate. Please check your username and password.",
-                    )
-                    return redirect("hospital_registration")
+                    messages.error(request, "Failed to authenticate. Please check your username and password.")
+                    return redirect("health:hospital_registration")
         else:
+            # Handle invalid form submission
             messages.error(request, "Failed to register Hospital or login")
             messages.success(request, "Your hospital registration has been submitted")
             return redirect("success")
@@ -214,7 +218,6 @@ def Doctor_registration(request):
 
     return render(request, "hosreg.html", {"form": form})
 
-
 def Patient_registration(request):
     if request.method == "POST":
         form = Patient_registrationForm(request.POST)
@@ -222,6 +225,7 @@ def Patient_registration(request):
             username = form.cleaned_data["Username"]
             password = form.cleaned_data["Password"]
             hospital = form.cleaned_data["Hospital"]
+            identity = form.cleaned_data["Identity_No"]
 
             # Check if the username already exists
             if CustomUser.objects.filter(username=username).exists():
@@ -232,7 +236,7 @@ def Patient_registration(request):
 
             # Create a CustomUser for the patient
             user = CustomUser.objects.create_user(
-                username=username, password=password, user_type="patient"
+                username=username, password=password, user_id=identity, user_type="patient"
             )
             user.save()
 
@@ -240,7 +244,7 @@ def Patient_registration(request):
             patient= Patient(Username = form.cleaned_data["Username"],
             password = form.cleaned_data["Password"],
             Hospital = form.cleaned_data["Hospital"],
-            identity =form.cleaned_data["Identity_No"],
+            user_id =form.cleaned_data["Identity_No"],
             )
             patient.save()
             print("Form data:", form.cleaned_data)
@@ -251,7 +255,7 @@ def Patient_registration(request):
                 Username=username,
                 Password=password,
                 Hospital=hospital,
-                Identity_No=identity,
+                user_id=identity,
             )
             patient.my_hospitals.add(hospital)
             # Debugging statement to check authentication
@@ -327,8 +331,6 @@ def patient_dashboard(request):
         user_type = 'patient'
         patients = CustomUser.objects.filter(user_type=user_type)
         patient = Patient.objects.filter()
-        
-
         # Add patient-specific logic and context data here
         patient = CustomUser.objects.filter(user_type=user_type)  
     if patient.exists():

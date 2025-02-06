@@ -10,7 +10,7 @@ your new password twice so we can verify you typed it in correctly.</p>
 <input class="btn btn-success" type="submit"
 value="Change my password">
 </form>
-{% if request.user.user_type == 'hospital' %}
+{% if request.user.user_type == 'doctor' %}
     <a href="{% url 'health:hospital_dashboard' %}">Back to Hospital Dashboard</a>
   {% elif request.user.user_type == 'patient' %}
     <a href="{% url 'health:patient_dashboard' %}">Back to Patient Dashboard</a>

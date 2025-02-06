@@ -20,12 +20,14 @@
       {% endfor %}
     </tbody>
   </table>
-  {% if request.user.user_type == 'hospital' %}
-    <a href="{% url 'hospital_dashboard' %}">Back to Hospital Dashboard</a>
+  <h1>Register a Patient</h1>
+  <a href="{% url 'health:patient' %}">Click here to register a new patient</a><br>
+  {% if request.user.user_type == 'doctor' %}
+    <a href="{% url 'health:hospital_dashboard' %}">Back to Hospital Dashboard</a>
   {% elif request.user.user_type == 'patient' %}
-    <a href="{% url 'patient_dashboard' %}">Back to Patient Dashboard</a>
+    <a href="{% url 'health:patient_dashboard' %}">Back to Patient Dashboard</a>
   {% else %}
-    <a href="{% url 'dashboard' %}">Back to Dashboard</a>
+    <a href="{% url 'health:dashboard' %}">Back to Dashboard</a>
   {% endif %}
   <!-- Patient list HTML content -->
 {% endblock %}

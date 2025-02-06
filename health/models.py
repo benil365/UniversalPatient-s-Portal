@@ -34,7 +34,7 @@ class HospitalUpload(models.Model):
     Patient_Id = models.CharField(max_length=50)
     category = models.TextField()
     file = models.FileField(upload_to='uploads/')
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE , null=True, blank=True)
+    user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
     def __str__(self):
         return f"{self.name} {self.Patient_Id} {self.category}{self.file}"
 

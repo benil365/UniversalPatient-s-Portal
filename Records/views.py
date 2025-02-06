@@ -123,7 +123,7 @@ class DoctorPage(TemplateView):
 
 def Hospital_user_Registration(request):
     """
-    The function `Hospital_user_reg` is a view function in Django that handles the registration of a
+    The function `Hospital_user_reg` is a view function that handles the registration of a
     hospital user, creates a CustomUser and DoctorData object, and authenticates the user.
     
     :param request: The `request` parameter is an object that represents the HTTP request made by the
@@ -150,6 +150,7 @@ def Hospital_user_Registration(request):
                 user = CustomUser.objects.create_user(
                     username=username, password=password, user_type="doctor"
                 )
+                Doctor.save()
                 
                 # Create DoctorData object and link to the doctor
                 doctor = Doctor.objects.create(username=doctor_name)
@@ -172,7 +173,7 @@ def Hospital_user_Registration(request):
         else:
             messages.error(request, "Failed to register Hospital or login")
             messages.success(request, "Your hospital registration has been submitted")
-            return redirect("success")
+            return redirect("health:Success")
     else:
         form = Hospital_user_RegistrationForm()
 
