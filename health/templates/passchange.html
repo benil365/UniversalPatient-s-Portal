@@ -3,13 +3,8 @@
 {% block title %}Password Change{% endblock title %}
 {% block content %}
 <h1>Password change</h1>
-<<<<<<< HEAD
 <p><b>Please enter your old password and then enter
 your new password</b></p>
-=======
-<p>Please enter your old password, for security's sake, and then enter
-your new password twice so we can verify you typed it in correctly.</p>
->>>>>>> 144a6299dd623bb6476b549c3b2c0f28d01a8a1d
 <form method="POST">{% csrf_token %}
 {{ form|crispy }}
 <input class="btn btn-success" type="submit"
