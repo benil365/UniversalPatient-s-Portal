@@ -1,0 +1,219 @@
+{%extends 'base.html'%}
+{%block content%}
+<html>
+<head>
+  <title>Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+    
+    title {
+      text-align:left;
+    }
+    p1 {
+      text-align:left;
+      color: aqua;
+    }
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 20px;
+      margin-top: 40px;
+    }
+    
+    .dashboard-item {
+      padding: 20px;
+      background-color: #f0f0f0;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+    }
+    
+    .dashboard-item:hover {
+      background-color: #e0e0e0;
+    }
+    
+    .dashboard-item h2 {
+      margin-top: 0;
+    }
+    
+    .dashboard-item p {
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+<body>
+  <div style="position: absolute; top: 80px; right: 80px;">
+    {% if user.is_authenticated %}
+      <p><b>Registration ID: {{ user.doctor.reg_number }}</b></p>
+      
+    {% endif %}
+  </div>
+  <h1>Dashboard</h1>
+  
+  <div class="dashboard">
+    <div class="dashboard-item" id="uploads">
+      <h2><a href="{% url 'health:patient_list' %}">Health Records</a></h2>
+      <p>Upload, View and Manage Patients Health Records.</p>
+      
+    </div>
+    
+    <div class="dashboard-item" id="hospitals">
+      <h2><a href="{% url 'health:patient_list' %}">My Patients</a></h2>
+      <p>Access information about your Patients.</p>
+    </div>
+    
+    <div class="dashboard-item" id="subscriptions">
+      <h2><a href="{% url 'health:patient_list' %}">Subscriptions</a></h2>
+      <p>Manage your subscription services.</p>
+    </div>
+    
+    <div class="dashboard-item" id="reports">
+      <h2><a href="{% url 'health:patient_list' %}">Health Reports</a></h2>
+      <p>Generate, View and analyze health reports for patients.</p>
+    </div>
+  </div>
+  <a href="{% url 'health:paswd_change' %}">Do you want to Change password?Click here</a></h2>
+  <div id="posts-container"></div>
+  
+  <div id="upload-message"></div>
+  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      // Fetch and display the posts on page load
+      fetchPosts();
+
+      function fetchPosts() {
+        $.ajax({
+          url: '/get_posts/',  // The URL to your Django view that returns the data
+          type: 'GET',
+          success: function(response) {
+            // Handle the successful response
+            console.log(response);  // Log the response to the console
+
+            // Display the posts on the dashboard
+            var postsContainer = $('#posts-container');
+            postsContainer.empty();  // Clear the existing posts
+
+            // Iterate through the response data and create HTML elements for each post
+            for (var i = 0; i < response.length; i++) {
+              var post = response[i];
+              var postElement = $('<div>').addClass('post');
+              postElement.append($('<h3>').text(post.title));
+              postElement.append($('<p>').text(post.content));
+              postsContainer.append(postElement);
+            }
+          },
+          error: function(error) {
+            // Handle the error response
+            console.log(error);  // Log the error to the console
+            // Perform any other error handling as needed
+          }
+        });
+      }
+
+      // Add an event listener to the file upload form
+      $('form').on('submit', function(e) {
+        e.preventDefault();  // Prevent form submission
+
+        // Get the file input element
+        var fileInput = $('input[name="fileupload"]')[0];
+        var file = fileInput.files[0];
+
+        // Create a FormData object and append the file to it
+        var formData = new FormData();
+        formData.append('file', file);
+
+        // Make an AJAX request to upload the file
+        $.ajax({
+          url: '/Upload/',  // The URL to your Django view that handles the file upload
+          type: 'POST',
+          data: formData,
+          processData: false,
+          contentType: false,
+          success: function(response) {
+            // Handle the successful response
+            console.log(response);  // Log the response to the console
+
+            // Display the upload success message
+            var uploadMessage = $('#upload-message');
+            uploadMessage.text('Upload successful');
+
+            // Clear the file input
+            fileInput.value = '';
+          },
+          error: function(error) {
+            // Handle the error response
+            console.log(error);  // Log the error to the console
+            // Perform any other error handling as needed
+          }
+        });
+      });
+    });
+  </script>
+</body>
+  <script>
+    // Get the dashboard items
+    var uploadsItem = document.getElementById('uploads');
+    var hospitalsItem = document.getElementById('hospitals');
+    var subscriptionsItem = document.getElementById('subscriptions');
+    var reportsItem = document.getElementById('reports');
+
+    // Add click event listeners to the items
+    uploadsItem.addEventListener('click', function() {
+      console.log('Clicked My Uploads');
+      // Perform actions for My Uploads
+    });
+
+    hospitalsItem.addEventListener('click', function() {
+      console.log('Clicked My Hospitals');
+      // Perform actions for My Hospitals
+    });
+
+    subscriptionsItem.addEventListener('click', function() {
+      console.log('Clicked My Subscriptions');
+      // Perform actions for My Subscriptions
+    });
+
+    reportsItem.addEventListener('click', function() {
+      console.log('Clicked Reports');
+      // Perform actions for Reports
+    });
+  </script>
+</body>
+    <title>Hospital List</title>
+</head>
+<body>
+    <title>Hospital List</title>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Category</th>
+                <!-- Add other fields you want to display -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for hospital in hospitals %}
+            <tr>
+                <td>{{ Hospital.Name }}</td>
+                <td>{{ Hospital.email }}</td>
+                <td>{{ Hospital.category}}</td>
+                <!-- Display other fields here -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+<a href="{% url 'health:Upload' %}">Health Document Upload</a></h2>
+ <p>For more information please contant us through our email:<a href="mailto:benilinternational@yahoo.com">benilinternational@gmail.com</a><br>
+Or call us on <a href="tel:0115427807">+254115427807</a></p>
+{%if user.is_authenticated%}
+<a href="{%url 'health:logout' %}">Logout</a> 
+{%endif%}
+{%endblock content%}

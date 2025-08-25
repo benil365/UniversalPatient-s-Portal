@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+  body {
+    background-image: url("https://eac.ac.ke/wp-content/uploads/2019/08/CHRIT.jpg");
+    background-size: cover;
+    background-position: center;
+    font-family: Calibri, Helvetica, sans-serif;
+  }
+  .main-card {
+    background: rgba(255,255,255,0.96);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px 0 rgba(31,38,135,0.18);
+    padding: 2rem 2.5rem;
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+  .section-title {
+    color: #007bff;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  .footer {
+    background: #343a40;
+    color: #fff;
+    padding: 18px 0;
+    margin-top: 40px;
+    border-radius: 0 0 16px 16px;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.08);
+  }
+  .contact-link {
+    color: #007bff;
+    font-weight: bold;
+    text-decoration: underline;
+  }
+</style>
+
+<div class="container">
+  <div class="main-card mx-auto col-md-10 col-lg-8">
+    <div class="text-center mb-4">
+      <h1 class="display-4 text-primary font-weight-bold mb-2">Global Health Access</h1>
+      <h4 class="text-success mb-3">Empowering Healthcare Through Technology</h4>
+    </div>
+    <div class="section mb-4">
+      <h2 class="section-title">About Us</h2>
+      <p>
+        Global Health Access is a leading provider of health records management solutions for hospitals and patients. We are committed to revolutionizing the way healthcare organizations manage and access patient information.
+      </p>
+      <p>
+        Our mission is to streamline the health record management process, ensuring the security, privacy, and efficient retrieval of medical records. With our state-of-the-art technology and dedicated team, we strive to empower healthcare providers and patients with reliable, accessible, and comprehensive health record solutions.
+      </p>
+    </div>
+    <div class="section mb-4">
+      <h2 class="section-title">Our Team</h2>
+      <p>
+        At Global Health Access, we have a team of experienced professionals who are passionate about improving healthcare through advanced technology. Our team consists of talented software engineers, data analysts, and healthcare experts who work together to deliver cutting-edge solutions to our clients.
+      </p>
+    </div>
+    <div class="section mb-4">
+      <h2 class="section-title">Our Story</h2>
+      <p>
+        Global Health Access was established in 2025 to help in the storage and retrieval of health records. We are a private limited company focused on providing service solutions for hospitals and people around the globe. Register or create an account with us to enjoy our services. A BenIL International Group Product.
+      </p>
+    </div>
+    <div class="section mb-4">
+      <h2 class="section-title">Contact Us</h2>
+      <p>
+        For inquiries, email us at
+        <a href="mailto:luvagabenson@gmail.com" class="contact-link">luvagabenson@gmail.com</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="footer text-center">
+  <small>&copy; 2023 Global Access. A BenIL International Product. All rights reserved.</small>
+</div>
+{% endblock content %}

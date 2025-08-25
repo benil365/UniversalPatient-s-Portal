@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+  body {
+    background-image: url("https://eac.ac.ke/wp-content/uploads/2019/08/CHRIT.jpg");
+    background-size: cover;
+    background-position: center;
+    font-family: Arial, sans-serif;
+  }
+  .main-card {
+    background: rgba(255,255,255,0.96);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px 0 rgba(31,38,135,0.18);
+    padding: 2rem 2.5rem;
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+  .service-card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(31,38,135,0.10);
+    margin-bottom: 24px;
+    background: rgba(245,245,255,0.98);
+  }
+  .service-card h3 {
+    color: #007bff;
+    font-weight: bold;
+  }
+  .footer {
+    background: #343a40;
+    color: #fff;
+    padding: 18px 0;
+    margin-top: 40px;
+    border-radius: 0 0 16px 16px;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.08);
+  }
+</style>
+
+<div class="container">
+  <div class="main-card mx-auto col-md-10 col-lg-8">
+    <div class="text-center mb-4">
+      <h1 class="display-4 text-primary font-weight-bold mb-2">Global Health Limited</h1>
+      <h4 class="text-success mb-3">Our Services</h4>
+      <p class="lead text-secondary">Empowering healthcare with technology-driven solutions.</p>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card service-card p-3">
+          <h3>Electronic Health Records (EHR) System</h3>
+          <p>Comprehensive EHR system for secure and efficient management of patient health records. Simplifies workflows and enhances patient care.</p>
+        </div>
+        <div class="card service-card p-3">
+          <h3>Interoperability Solutions</h3>
+          <p>Seamless data exchange between healthcare providers and systems. Secure, standardized communication for continuity of care.</p>
+        </div>
+        <div class="card service-card p-3">
+          <h3>Data Analytics and Reporting</h3>
+          <p>Advanced analytics and reporting to extract insights, analyze trends, and generate meaningful reports for data-driven decisions.</p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card service-card p-3">
+          <h3>Patient Portal</h3>
+          <p>Empowers patients to access and manage their health records securely, view medical history, and communicate with providers.</p>
+        </div>
+        <div class="card service-card p-3">
+          <h3>Patient-Doctor Linking</h3>
+          <p>Online platform for doctors and physicians to link with patients for consultation and care.</p>
+        </div>
+        <div class="card service-card p-3">
+          <h3>Mobile Applications</h3>
+          <p>User-friendly mobile apps for convenient access to health records, enabling professionals to stay connected anytime, anywhere.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer text-center">
+  <small>&copy; 2023 Global Health Limited. All rights reserved.</small>
+</div>
+{% endblock content %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+  .main-card {
+    background: rgba(255,255,255,0.96);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px 0 rgba(31,38,135,0.18);
+    padding: 2rem 2.5rem;
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+  .footer {
+    background: #343a40;
+    color: #fff;
+    padding: 18px 0;
+    margin-top: 40px;
+    border-radius: 0 0 16px 16px;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.08);
+  }
+</style>
+
+<div class="container">
+  <div class="main-card mx-auto col-md-8 col-lg-6">
+    <div class="text-center mb-4">
+      <h2 class="text-primary font-weight-bold mb-2">Doctor Registration</h2>
+      <p class="mb-3 text-secondary">Register with us and join the Global Access network!</p>
+    </div>
+    <form method="post">
+      {% csrf_token %}
+      {% for field in form %}
+        <div class="form-group">
+          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {{ field }}
+          {% if field.errors %}
+            <div class="text-danger small">{{ field.errors }}</div>
+          {% endif %}
+        </div>
+      {% endfor %}
+      <button class="btn btn-primary btn-block" type="submit">Register</button>
+    </form>
+  </div>
+</div>
+
+<div class="footer text-center">
+  <small>&copy; 2023 Global Access. A BeniL International Product. All rights reserved.</small>
+</div>
+{% endblock content %}

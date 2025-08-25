@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row justify-content-center mt-5 mb-4">
+  <div class="col-md-7 col-lg-6">
+    <div class="card shadow-lg">
+      <div class="card-header bg-primary text-white text-center">
+        <h2 class="mb-1">Patient Registration</h2>
+        <p class="mb-0">Please fill in your details below</p>
+      </div>
+      <div class="card-body bg-light">
+        <form method="POST">
+          {% csrf_token %}
+          {% for field in form %}
+            <div class="form-group">
+              <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+              {{ field }}
+              {% if field.errors %}
+                <div class="text-danger small">{{ field.errors }}</div>
+              {% endif %}
+            </div>
+          {% endfor %}
+          <button class="btn btn-primary btn-block" type="submit">Register</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="bg-dark text-white text-center py-3 mt-5">
+  <div class="mb-2">
+    <a href="{% url 'health:home' %}" class="text-white mx-2">Home</a>
+    <a href="{% url 'health:about' %}" class="text-white mx-2">About</a>
+    <a href="{% url 'health:service' %}" class="text-white mx-2">Services</a>
+    <a href="{% url 'health:registration' %}" class="text-white mx-2">Hospital Registration</a>
+  </div>
+  <small>&copy; 2023 Global Access. A BeniL International Product. All rights reserved.</small>
+</footer>
+{% endblock content %}

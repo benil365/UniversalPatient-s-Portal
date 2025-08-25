@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+  .main-card {
+    background: rgba(255,255,255,0.96);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px 0 rgba(31,38,135,0.18);
+    padding: 2rem 2.5rem;
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+  .card-header {
+    border-radius: 16px 16px 0 0;
+  }
+  .footer {
+    background: #343a40;
+    color: #fff;
+    padding: 18px 0;
+    margin-top: 40px;
+    border-radius: 0 0 16px 16px;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.08);
+  }
+</style>
+<div class="container">
+  <div class="main-card mx-auto col-md-6">
+    <div class="card-header bg-primary text-white text-center">
+      <h3>Patient's Portal</h3>
+      <h5>Enter Username and Password to login</h5>
+    </div>
+    <div class="card-body bg-light">
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary btn-block">Log In</button>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="footer text-center">
+  <small>&copy; 2023 Global Access. A BeniL International Product. All rights reserved.</small>
+</div>
+{% endblock content %}

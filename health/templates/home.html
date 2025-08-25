@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+  body {
+    background: url("https://eac.ac.ke/wp-content/uploads/2019/08/CHRIT.jpg") no-repeat center center fixed;
+    background-size: cover;
+    font-family: Arial, sans-serif;
+  }
+  .main-card {
+    background: rgba(255,255,255,0.92);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px 0 rgba(31,38,135,0.37);
+    padding: 2rem 2.5rem;
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+  .hero-image img {
+    max-width: 120px;
+    margin-bottom: 1rem;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  .cta-button {
+    display: inline-block;
+    padding: 10px 24px;
+    background-color: #007bff;
+    color: #fff !important;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 4px;
+    margin: 8px 0;
+    transition: background 0.3s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  .cta-button:hover {
+    background-color: #0056b3;
+    color: #fff !important;
+  }
+  .footer {
+    background: #343a40;
+    color: #fff;
+    padding: 18px 0;
+    margin-top: 40px;
+    border-radius: 0 0 16px 16px;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.08);
+  }
+</style>
+
+<div class="container">
+  <div class="main-card mx-auto">
+    <div class="text-center mb-4">
+      <div class="hero-image">
+        <img src="https://e7.pngegg.com/pngimages/750/183/png-clipart-world-health-organization-pan-american-health-organization-non-governmental-organisation-world-health-assembly-united-nations-office-at-geneva-logo-area-thumbnail.png" alt="Global Access Logo">
+      </div>
+      <h1 class="display-4 text-primary font-weight-bold mb-2">Global Access</h1>
+      <h4 class="text-success mb-3">Your Health Data Access Partner!</h4>
+    </div>
+    <div class="content">
+      <div class="section mb-4">
+        <h2 class="text-info font-weight-bold">Welcome to Global Access</h2>
+        <p>We offer comprehensive solutions for creating, storing, retrieving, and generating reports on Patients & Doctor Health records.</p>
+      </div>
+      <div class="section mb-4">
+        <h2 class="text-info font-weight-bold">Why Choose Global Access?</h2>
+        <ul class="list-group list-group-flush mb-3">
+          <li class="list-group-item">Secure and centralized storage for health records</li>
+          <li class="list-group-item">Efficient retrieval and access to patient information</li>
+          <li class="list-group-item">Advanced reporting capabilities for data analysis</li>
+        </ul>
+      </div>
+      <div class="section mb-4">
+        <h2 class="text-info font-weight-bold">Get Started Today!</h2>
+        <p>Join us in revolutionizing healthcare. Sign up now!</p>
+        <div class="row">
+          <div class="col-md-6 text-center">
+            <h5>Medic Registration</h5>
+            <a href="{% url 'health:registration' %}" class="cta-button">Sign Up</a>
+          </div>
+          <div class="col-md-6 text-center">
+            <h5>Patient Registration</h5>
+            <a href="{% url 'health:patient' %}" class="cta-button">Sign Up</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer text-center">
+  <small>&copy; 2023 Global Access. A BeniL International Group Product. All rights reserved.</small>
+</div>
+{% endblock content %}

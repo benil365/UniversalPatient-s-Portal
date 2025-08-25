@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+  <!-- File upload form HTML content -->
+  <p>Upload your file here</p>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-primary" type="submit">Fill form for upload</button>
+  </form>
+  {% if success %}
+    <p>Upload successful</p>
+  {% endif %}
+  {% if request.user.user_type == 'doctor' %}
+    <a href="{% url 'health:hospital_dashboard' %}">Back to Hospital Dashboard</a>
+  {% elif request.user.user_type == 'patient' %}
+    <a href="{% url 'health:patient_dashboard' %}">Back to Patient Dashboard</a>
+  {% else %}
+    <a href="{% url 'health:dashboard' %}">Back to Dashboard</a>
+  {% endif %}
+{% endblock %}

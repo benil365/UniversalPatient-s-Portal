@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <form method="get" action="{% url 'health:search' %}" class="mb-4">
+        <div class="input-group">
+          <input type="text" name="q" class="form-control" placeholder="Search..." value="{{ query|default:'' }}">
+          <div class="input-group-append">
+            <button class="btn btn-primary" type="submit">Search</button>
+          </div>
+        </div>
+      </form>
+      {% if query %}
+        <h2 class="mb-3">Search Results for "{{ query }}"</h2>
+        {% if results %}
+          <ul class="list-group">
+            {% for result in results %}
+              <li class="list-group-item">{{ result }}</li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p class="text-danger">No results found.</p>
+        {% endif %}
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock content %}
