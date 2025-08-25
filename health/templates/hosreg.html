@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
@@ -46,3 +47,65 @@
   <small>&copy; 2023 Global Access. A BeniL International Product. All rights reserved.</small>
 </div>
 {% endblock content %}
+=======
+{%extends 'base.html'%}
+{%load static%}
+{%block content%}
+<title>Registration Page</title>
+<h1>Registration Page</h1>
+<style>
+  Body {  
+   font-family: Calibri, Helvetica, sans-serif;  
+   text-decoration-color: #f1f1f1;  
+ } 
+ .half-bg {
+      height: 100vh;
+      background-color: #ffffffff;
+      background-image: linear-gradient(to bottom, #ffffffff 50%, #f2f2f2 50%);
+    }
+    .content {
+      padding: 20px;
+      text-align:justify;
+      }
+    h2{font-size: medium;
+      background-attachment: fixed;
+      font-family:Arial, Helvetica, sans-serif;
+      font-style:normal;
+      text-decoration-color: blue;
+      color: blue;
+
+ } 
+h1 {text-align:justify;
+  text-decoration: solid;
+
+ }
+ .footer {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+ </style>
+ <div class="half-bg">
+  <div class="content"
+</a>
+<ul class="dropdown-menu">
+  <li><a class="dropdown-item" href="{% url 'health:home' %}">Home</a></li>
+  <li><a class="dropdown-item"href="{%url 'health:about'%}">About</a></li>
+  <li><a class="dropdown-item" href="{%url 'health:service'%}">Services</a></li>
+</ul>
+</li>
+<h2>Register with us here!!</h2>
+<h3>Doctor registration</h3>
+<form method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button class="btn btn-primary" type="submit">Register</button>
+</form>
+</div>
+</div>
+<div class="footer">
+  <p>&copy; 2023 Global Access.A BeniL International Product. All rights reserved.</p>
+</div>
+
+{%endblock content%}
+>>>>>>> 144a6299dd623bb6476b549c3b2c0f28d01a8a1d

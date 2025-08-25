@@ -64,6 +64,7 @@ def get_posts_view(request):
 
 
 def search_view(request):
+<<<<<<< HEAD
     query = request.GET.get("q", "")
     results = []
 
@@ -78,6 +79,10 @@ def search_view(request):
             results.append(f"Doctor: {doctor.Username}")
         for hospital in hospital_results:
             results.append(f"Hospital: {hospital.name}")  # <-- changed here
+=======
+    query = request.GET.get("q")  # Get the search query from the request
+    results = []  # Perform the search operation and obtain search results
+>>>>>>> 144a6299dd623bb6476b549c3b2c0f28d01a8a1d
 
     context = {
         "query": query,

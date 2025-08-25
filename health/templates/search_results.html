@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% extends 'base.html' %}
 {% block content %}
 <div class="container mt-5">
@@ -27,3 +28,17 @@
   </div>
 </div>
 {% endblock content %}
+=======
+{% if query %}
+    <h2>Search Results for "{{ query }}"</h2>
+    {% if results %}
+        <ul>
+            {% for result in results %}
+                <li>{{ result }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No results found.</p>
+    {% endif %}
+{% endif %}
+>>>>>>> 144a6299dd623bb6476b549c3b2c0f28d01a8a1d
