@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
 <style>
   body {
@@ -50,9 +51,9 @@
   <div class="main-card mx-auto">
     <div class="text-center mb-4">
       <div class="hero-image">
-        <img src="https://e7.pngegg.com/pngimages/750/183/png-clipart-world-health-organization-pan-american-health-organization-non-governmental-organisation-world-health-assembly-united-nations-office-at-geneva-logo-area-thumbnail.png" alt="Global Access Logo">
+        <img src="{% static 'images/BENNIL iNTERNATIONAL_20250521_113846_0000.png' %}" alt="Global Access Logo">
       </div>
-      <h1 class="display-4 text-primary font-weight-bold mb-2">Global Access</h1>
+      <h1 class="display-4 text-primary font-weight-bold mb-2">GlobalAccess</h1>
       <h4 class="text-success mb-3">Your Health Data Access Partner!</h4>
     </div>
     <div class="content">
