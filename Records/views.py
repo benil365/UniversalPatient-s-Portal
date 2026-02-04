@@ -35,23 +35,28 @@ class RegistrationPage(TemplateView):
             hospital = form.cleaned_data['Hospital']
 
             # Check if the username already exists
-            if Patient.objects.filter(identity=identity).exists():
+            if Patient.objects.filter(identity=str(identity)).exists():
                 messages.error(request, 'Identy number already exists. Please request for medical record.')
                 return redirect('Reg.html')
 
             # Create a CustomUser for the patient
-            user = Patient.objects.create_user(username=username, password=password, user_type='patient')
-            user.set_password(password)
-            user.save()
+            user = CustomUser.objects.create_user(username=username, password=password, user_type='patient')
 
             # Create Patient object and link to the user and hospital
-            patient = Patient(user=user)
+            patient = Patient(
+                user=user,
+                Username=username,
+                password=password,
+                Hospital=hospital,
+                identity=str(identity),
+            )
             patient.save()
 
             print("Form data:", form.cleaned_data)
             print("User:", user)
             print("Patient:", patient)
-            patient.my_hospitals.add(hospital)
+            hospital_obj, _ = user.hospitals.get_or_create(name=hospital)
+            user.hospitals.add(hospital_obj)
             
             # Redirect to the success page
             return redirect("success")
@@ -150,10 +155,16 @@ def Hospital_user_Registration(request):
                 user = CustomUser.objects.create_user(
                     username=username, password=password, user_type="doctor"
                 )
-                Doctor.save()
-                
+                registration_number = form.cleaned_data["Registration_number"]
+
                 # Create DoctorData object and link to the doctor
-                doctor = Doctor.objects.create(username=doctor_name)
+                doctor = Doctor.objects.create(
+                    user=user,
+                    Username=username,
+                    Password=password,
+                    reg_number=registration_number,
+                    name=doctor_name,
+                )
                 doctor_data = DoctorData.objects.create(user=user, doctor=doctor)
                 
                 # Debugging statement to check authentication
@@ -187,10 +198,10 @@ def search_patient(request):
             Username = form.cleaned_data['Username']
             # Perform the search based on the provided criteria
             try:
-                patient = CustomUser.objects.get(Username=Username)
+                patient = CustomUser.objects.get(username=Username)
                 # Render a template to display patient details
                 return render(request, 'record.html', {'patient': patient})
-            except Patient.DoesNotExist:
+            except CustomUser.DoesNotExist:
                 messages.warning(request, 'No patient with the provided identity number found.')
         else:
             messages.error(request, 'Invalid search criteria. Please check the form.')
@@ -199,4 +210,3 @@ def search_patient(request):
     
     return render(request, 'record.html', {'form': form}) 
         
-
